@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link type="text/css" rel="Stylesheet" href="/Scripts/extjs/ext-theme-neptune/resources/ext-theme-neptune-all.css" />
+
+    <script type="text/javascript" src="/Scripts/extjs/jquery-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-locale/build/ext-locale-zh_CN.js"></script>
+
+    <link type="text/css" rel="Stylesheet" href="/style/css.css" />
+
+    <script>
+        Ext.onReady(function () {
+            var win;
+            var btnImport = Ext.create('Ext.Button', {
+                renderTo: 'open-btn',
+                text: "导入生产需求",
+                width: 100,
+                height: 30,
+                style: 'margin:10px',
+                listeners: {
+                    "click": function () {
+                        win = new Ext.window.Window({
+                            id: 'openwin',
+                            width: 500,
+                            height: 180,
+                            title: '导入生产需求',
+                            constrain: true,
+                            //autoShow: true,
+                            modal: true,
+                            resizable: false,
+                            items: [
+                                Ext.create('Ext.form.Panel', {
+                                    width: '100%',
+                                    bodyPadding: 10,
+                                    frame: true,
+                                    items: [{
+                                        xtype: 'filefield',
+                                        name: 'deployFile',
+                                        fieldLabel: 'Excel文件',
+                                        style: "margin:30px;",
+                                        labelWidth: 70,
+                                        msgTarget: 'side',
+                                        fileUpload: true,
+                                        allowBlank: false,
+                                        anchor: '100%',
+                                        buttonText: '浏览...',
+                                        regex: /^.+\.(xls|xlsx)$/,
+                                        regexText: "只能选择Excel文件"
+                                    }],
+
+                                    buttons: [{
+                                        text: '导入',
+                                        buttonAlign: 'center',
+                                        handler: function () {
+                                            var form = this.up('form').getForm();
+                                            if (form.isValid()) {
+                                                form.submit({
+                                                    method: 'post',
+                                                    enctype: "multipart/form-data",
+                                                    url: '../upload/uploadFile',
+                                                    waitMsg: '正在上传中...',
+                                                    success: function (fp, o) {
+                                                        console.log(o);
+                                                        win.close();
+
+                                                        Ext.Msg.alert('Success', '导入成功');
+
+                                                    },
+                                                    failure: function (form, action) {
+                                                        console.log(action);
+                                                        Ext.Msg.alert('导入失败', action.result.reason);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    },
+                                    {
+                                        text: '关闭',
+                                        buttonAlign: 'center',
+                                        handler: function () {
+                                            win.close();
+                                        }
+                                    }
+                                    ]
+                                })
+                            ]
+                        });
+
+                        win.show();
+
+                        $('.x-mask').css('background-color', '#000');
+                        $('.x-mask').css('opacity', '0.2');
+                    }
+                }
+            });
+
+            var formPanel = Ext.create('Ext.form.Panel', {
+                title: '多文件上传',
+                width: 400,
+                bodyPadding: 10,
+                renderTo: 'mutifile',
+                items: [{
+                    xtype: 'filefield',
+                    name: 'files',
+                    fieldLabel: '选择文件',
+                    allowBlank: false,
+                    buttonText: '浏览...',
+                    listeners: {
+                        afterrender: function (cmp) {
+                            // 设置 input 元素的 multiple 属性
+                            cmp.fileInputEl.set({ multiple: 'multiple' });
+                        }
+                    }
+                }],
+                buttons: [{
+                    text: '上传',
+                    handler: function () {
+                        var form = this.up('form').getForm();
+                        if (form.isValid()) {
+                            form.submit({
+                                method: 'post',
+                                enctype: "multipart/form-data",
+                                url: 'http://localhost:44324/orderImport/UploadFile',
+                                waitMsg: '正在上传中...',
+                                success: function (form, action) {
+                                    Ext.Msg.alert('成功', '文件上传成功！');
+                                },
+                                failure: function (form, action) {
+                                    Ext.Msg.alert('失败', '文件上传失败：' + action.result.result);
+                                }
+                            });
+                        }
+                    }
+                }]
+            });
+
+            var filesStore = Ext.create('Ext.data.Store', {
+                fields: ['name', 'size', 'type','file'],
+                data: []
+            });
+
+            // 创建拖拽区域
+            var dragDropPanel = Ext.create('Ext.panel.Panel', {
+                title: '拖拽文件到此区域',
+                width: 400,
+                height: 200,
+                bodyPadding: 0,
+                renderTo: Ext.getBody(),
+                html: '<div class="drop-zone" style="width:100%;height:100%">将文件拖拽到此区域</div>',
+                listeners: {
+                    afterrender: function (cmp) {
+                        var dropZone = cmp.getEl().down('.drop-zone').dom;
+
+                        // 阻止默认行为
+                        function preventDefault(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+
+                        // 高亮拖拽区域
+                        function highlight() {
+                            dropZone.style.backgroundColor = '#e0e0e0';
+                        }
+
+                        // 取消高亮拖拽区域
+                        function unhighlight() {
+                            dropZone.style.backgroundColor = '';
+                        }
+
+                        // 监听拖拽事件
+                        dropZone.addEventListener('dragenter', preventDefault, false);
+                        dropZone.addEventListener('dragover', function (e) {
+                            preventDefault(e);
+                            highlight();
+                        }, false);
+                        dropZone.addEventListener('dragleave', function (e) {
+                            preventDefault(e);
+                            unhighlight();
+                        }, false);
+                        dropZone.addEventListener('drop', function (e) {
+                            preventDefault(e);
+                            unhighlight();
+
+                            // 获取拖拽的文件
+                            var files = e.dataTransfer.files;
+                            if (files.length > 0) {
+                                addFilesToStore(files);
+                            }
+                        }, false);
+                    }
+                }
+            });
+
+            // 添加文件到 Store
+            function addFilesToStore(files) {
+                var fileData = [];
+                for (var i = 0; i < files.length; i++) {
+                    fileData.push({
+                        name: files[i].name,
+                        size: files[i].size,
+                        type: files[i].type,
+                        file: files[i]
+                    });
+                }
+                filesStore.add(fileData);
+            }
+
+            // 创建文件列表
+            var fileGrid = Ext.create('Ext.grid.Panel', {
+                id: "grid",
+                title: '文件列表',
+                width: 400,
+                height: 200,
+                store: filesStore,
+                columns: [
+                    { text: '文件名', dataIndex: 'name', flex: 1 },
+                    { text: '大小 (字节)', dataIndex: 'size', width: 100 },
+                    { text: '类型', dataIndex: 'type', width: 100 }
+                ],
+                renderTo: Ext.getBody()
+            });
+
+            // 创建上传按钮
+            var uploadButton = Ext.create('Ext.Button', {
+                text: '上传文件',
+                renderTo: Ext.getBody(),
+                handler: function () {
+                    var files = [];
+                    filesStore.each(function (record) {
+                        files.push(record.data);
+                    });
+
+                    if (files.length > 0) {
+                        uploadFiles(files);
+                    } else {
+                        Ext.Msg.alert('提示', '请先拖拽文件到上传区域');
+                    }
+                }
+            });
+
+            // 文件上传函数
+            function uploadFiles(files) {
+                var formData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    formData.append('files', files[i].file); // 将文件添加到 FormData
+                }
+
+                // 使用 Ext.Ajax 上传文件
+                Ext.Ajax.request({
+                    url: 'http://localhost:44324/orderImport/UploadFile', // 服务器端上传地址
+                    method: 'POST',
+                    rawData: formData,
+                    headers: {
+                        'Content-Type': null
+                    },
+                    processData: false, // 不处理数据
+                    success: function (response) {
+                        var result = Ext.JSON.decode(response.responseText);
+                        if (result.success) {
+                            Ext.getCmp('grid').getStore().removeAll(); // 清空Store
+                            Ext.getCmp('grid').getStore().load();
+                            Ext.Msg.alert('成功', result.result);
+                        } else {
+                            Ext.Msg.alert('失败', result.result);
+                        }
+                    },
+                    failure: function (response) {
+                        Ext.Msg.alert('错误', '文件上传失败');
+                    }
+                });
+            }
+        
+        });
+
+    </script>
+</head>
+<body>
+    <div id="open-btn"> </div>
+    <div id="mutifile"></div>
+    <div id="mutifile2"></div>
+</body>
+</html>

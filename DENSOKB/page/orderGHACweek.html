@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>广本周订单</title>
+    <link type="text/css" rel="Stylesheet" href="/Scripts/extjs/ext-theme-neptune/resources/ext-theme-neptune-all.css" />
+    <script type="text/javascript" src="/Scripts/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-locale/build/ext-locale-zh_CN.js"></script>
+    <link rel="stylesheet" href="/build/packages/font-awesome/resources/font-awesome-all.css">
+    <script type="text/javascript" src="/Scripts/js/orderGHACweek.js"></script>
+    <style>
+        .x-message-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20000
+        }
+
+        .x-btn-wrap {
+            display: table;
+            height: 100%;
+            width: 100%;
+            margin-top: 1px;
+        }
+        /* 增大折叠按钮图标 */
+        .x-tool-collapse {
+            background-size: 20px 20px !important; /* 图标尺寸 */
+            width: 28px !important; /* 点击区域宽度 */
+            height: 28px !important; /* 点击区域高度 */
+        }
+
+            /* 鼠标悬停时更明显 */
+            .x-tool-collapse:hover {
+                background-color: #e0e0e0;
+                border-radius: 3px;
+            }
+    </style>
+</head>
+
+<body id="printform">
+    <div id="toolbar" style="height:150px"></div>
+    <div id="tableData" style="height: calc(100% - 350px); ">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>权限管理</title>
+    <link type="text/css" rel="Stylesheet" href="/Scripts/extjs/ext-theme-neptune/resources/ext-theme-neptune-all.css" />
+    <script type="text/javascript" src="/Scripts/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-locale/build/ext-locale-zh_CN.js"></script>
+    <link rel="stylesheet" href="/build/packages/font-awesome/resources/font-awesome-all.css">
+    <!--    <script type="text/javascript" src="/Scripts/js/chain.js"></script>-->
+    <script>
+        Ext.onReady(function () {
+            var token = localStorage.getItem('token');
+            var roleStore = Ext.create('Ext.data.Store', {
+                fields: ['id', 'r_name'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/RoleMenu/GetRolePageList',
+                    method: 'POST',
+                    actionMethods: {
+                        read: 'POST'
+                    },
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    paramsAsJson: true, 
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data',
+                        totalProperty: 'total'
+                    },
+                    writer: {
+                        type: 'json'
+                    }
+                },
+
+                autoLoad: true
+            });
+
+
+
+            var menuStore = Ext.create('Ext.data.TreeStore', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/menu/GetTree',
+                    reader: { type: 'json', rootProperty: 'data' }
+                },
+                root: {
+                    text: '根菜单',
+                    id: '0',
+                    expanded: true
+                },
+                autoLoad: false
+            });
+
+            var treePanel = Ext.create('Ext.tree.Panel', {
+                title: '菜单权限',
+                region: 'center',
+                store: menuStore,
+                rootVisible: false,
+                useArrows: true,
+                multiSelect: true,  
+                tbar: [
+                    {
+                        text: '全选',
+                        handler: function () {
+                            treePanel.getRootNode().cascadeBy(function (node) {
+                                node.set('checked', true);
+                            });
+                        }
+                    },
+                    {
+                        text: '清空',
+                        handler: function () {
+                            treePanel.getRootNode().cascadeBy(function (node) {
+                                node.set('checked', false);
+                            });
+                        }
+                    },
+                    {
+                        text: '保存权限',
+                        handler: function () {
+                            if (!selectedRoleId) {
+                                Ext.Msg.alert('提示', '请先选择角色');
+                                return;
+                            }
+                            var checkedNodes = treePanel.getChecked();
+                            var menuIds = checkedNodes.map(function (n) { return n.get('id'); });
+                            Ext.Ajax.request({
+                                url: '/roleMenu/SaveRoleMenus',
+                                method: 'POST',
+                                jsonData: {
+                                    roleId: selectedRoleId,
+                                    menuIds: menuIds
+                                },
+                                success: function () {
+                                    Ext.Msg.alert('成功', '保存成功');
+                                },
+                                failure: function () {
+                                    Ext.Msg.alert('失败', '保存失败');
+                                }
+                            });
+                        }
+                    }
+                ]
+            });
+
+            var selectedRoleId = null;
+
+            var roleGrid = Ext.create('Ext.grid.Panel', {
+                title: '角色列表',
+                region: 'west',
+                width: 250,
+                store: roleStore,
+                columns: [
+                    { text: '角色名称', dataIndex: 'r_name', flex: 1 }
+                ],
+                listeners: {
+                    itemclick: function (grid, record) {
+                        selectedRoleId = record.get('id');
+                        console.log(selectedRoleId);
+                        // 加载菜单并勾选已有权限
+                        menuStore.load({
+                            callback: function () {
+                                // 先展开全部节点
+                                treePanel.expandAll();
+                                treePanel.getRootNode().cascadeBy(function (node) {
+                                    node.set('checked', false);
+                                });
+                                
+                                Ext.Ajax.request({
+                                    url: '/RoleMenu/GetRoleMenus?roleId=' + selectedRoleId,
+                                    method: 'GET',
+                                    success: function (response) {
+                                        var menuIds = Ext.decode(response.responseText).data;
+                                        treePanel.getRootNode().cascadeBy(function (node) {
+                                            node.set('checked', menuIds.includes(node.get('id')));
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+
+            Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                items: [roleGrid, treePanel]
+            });
+        });
+    </script>
+    <style>
+
+        .x-message-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20000
+        }
+        .x-btn-wrap {
+            display: table;
+            height: 100%;
+            width: 100%;
+            margin-top: 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="toolbar" style="height:150px"></div>
+<div id="tableData" style="height: calc(100% - 350px); ">
+
+</div>
+</body>
+</html>

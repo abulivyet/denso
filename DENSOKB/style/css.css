@@ -1,0 +1,58 @@
+span, div {
+    font-family: 微软雅黑;
+}
+
+.x-panel-header-title-default {
+    font-weight: normal;
+}
+
+    .x-panel-header-title-default > .x-title-text-default {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+.toptitle {
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    left: 220px;
+    top: 0;
+    line-height: 66px;
+    color: #333
+}
+
+.userinfo {
+    position: absolute;
+    right: 100px;
+    top: 0;
+    line-height: 86px;
+}
+
+.logout {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    line-height: 86px;
+    color: red;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.menuItems {
+    text-align: center;
+    line-height: 30px;
+    border-bottom: 1px solid #ccc
+}
+/* 调整 TreePanel 节点行高 */
+.x-tree-view .x-grid-row {
+    height: 30px !important; /* 设置行高 */
+}
+
+/* 调整节点文字垂直居中（可选） */
+.x-tree-node-text {
+    line-height: 30px !important; /* 与行高一致 */
+}
+
+.x-tree-icon {
+    height: 38px;
+}

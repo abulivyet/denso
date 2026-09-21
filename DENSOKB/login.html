@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>南沙电装OMS系统</title>
+
+    <!-- 引入 Ext JS 5 核心库和经典主题 -->
+    <!--<link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/extjs/5.1.0/packages/ext-theme-classic/build/resources/ext-theme-classic-all.css">-->
+    <link type="text/css" rel="Stylesheet" href="/Scripts/extjs/ext-theme-neptune/resources/ext-theme-neptune-all.css" />
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.5.3/classic/theme-classic/resources/theme-classic-all.css">-->
+    <script type="text/javascript" src="/Scripts/extjs/jquery-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-locale/build/ext-locale-zh_CN.js"></script>
+    <!--<link rel="stylesheet" href="/build/packages/font-awesome/resources/font-awesome-all.css">-->
+    <style>
+        /* 自定义背景样式 */
+        .green-bg {
+            /*background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);*/
+            background-image: url("./images/login.jpg");
+            background-size: cover;
+            min-height: 100vh;
+        }
+        /* 登录卡片样式 */
+        .login-card {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.95);
+        }
+        /* 标题样式 */
+        .login-title {
+            color: #28a745;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+</body>
+</html >
+<script type="text/javascript">
+    var fullUrl = window.location.origin;
+   
+    Ext.onReady(function () {
+        
+        // 创建登录表单
+        var loginForm = Ext.create('Ext.form.Panel', {
+            id:"mainform",
+            width: 400,
+            bodyPadding: 30,
+            cls: 'login-card',  // 应用自定义样式
+            defaults: {
+                labelWidth: 80,
+                anchor: '100%',
+                labelStyle: 'color: #666;'
+            },
+            labelAlign: "left",
+            items: [{
+                xtype: 'component',
+                html: '<div class="login-title">南沙电装OMS系统</div>'
+            }, {
+                xtype: 'textfield',
+                fieldLabel: '账号',
+                id: 'username',
+                name: 'username',
+                allowBlank: false,
+                blankText: '请输入用户名',
+                margin: '0 0 20 0',
+                emptyText: '请输入您的账号',
+                labelWidth: 40,
+                triggers: {
+                    user: {
+                        cls: 'x-fa fa-user',
+                        handler: function () { }
+                    }
+                }
+            }, {
+                xtype: 'textfield',
+                fieldLabel: '密码',
+                id: 'password',
+                name: 'password',
+                inputType: 'password',
+                allowBlank: false,
+                margin: '0 0 20 0',
+                blankText: '请输入密码',
+                emptyText: '请输入您的密码',
+                labelWidth: 40,
+                triggers: {
+                    lock: {
+                        cls: 'x-fa fa-lock',
+                        handler: function () { }
+                    }
+                }
+            }, {
+                xtype: 'container',
+                layout: 'hbox',
+                margin: '0 0 20 0',
+                items: [{
+                    xtype: 'checkbox',
+                    name: 'remember',
+                    boxLabel: '记住登录',
+                    flex: 1
+                },
+                    //{
+                    //xtype: 'component',
+                    //html: '<a href="#" style="color:#28a745;">忘记密码?</a>'
+                    //}
+                ]
+            }],
+            buttons: [
+                //{
+                //text: '注册账号',
+                //scale: 'medium',
+                //handler: function () {
+                //    Ext.Msg.alert('提示', '跳转到注册页面');
+                //}
+                //},
+                '->', {
+                text: '立即登录',
+               // formBind: true,
+                scale: 'medium',
+                width: 120,
+                style: {
+                    backgroundColor: '#28a745',
+                    borderColor: '#28a745',
+                    color: 'white'
+                },
+                handler: function (btn) {
+                    var form = this.up('form').getForm();
+                    if (Ext.getCmp('mainform').isValid()) {
+                        mask.show(); // 显示遮罩层
+                        var jsonData = {
+                            "username": Ext.getCmp('username').getValue(),
+                            "password": Ext.getCmp('password').getValue(),
+                        };
+                        Ext.Ajax.request({
+                            url: fullUrl+'/Login/login',
+                            method: 'POST',
+                            jsonData: jsonData,
+                            headers: {
+                                'Content-Type': 'application/json' ,
+                            },
+                            success: function (response, options) {
+                                mask.hide(); // 请求成功隐藏遮罩层
+                                var resultJson = JSON.parse(response.responseText);
+                                if (resultJson.code == "200") {
+                                    localStorage.setItem('token', resultJson.data.token);
+                                    localStorage.setItem('user', resultJson.data.name);
+                                    window.location.replace('index.html');
+                                } else {
+                                    Ext.Msg.alert("警告",resultJson.info);
+                                }
+                            },
+                            failure: function (response, options) {
+                                mask.hide(); // 请求失败隐藏遮罩层
+                                Ext.Msg.alert("错误", "登录请求失败");
+                            }
+                        });
+                        //window.close();
+                    }
+                }
+            }]
+        });
+        var mask = new Ext.LoadMask({
+            msg: '正在登录，请稍候...',
+            target: loginForm
+        });
+        //mask.hide();
+        // 创建背景的Viewport
+        Ext.create('Ext.container.Viewport', {
+            cls: 'green-bg',  // 应用背景样式
+            layout: {
+                type: 'vbox',
+                align: 'center',
+                pack: 'center'
+            },
+            items: [loginForm]
+        });
+       
+    });
+</script>

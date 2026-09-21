@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>菜单管理</title>
+    <link type="text/css" rel="Stylesheet" href="/Scripts/extjs/ext-theme-neptune/resources/ext-theme-neptune-all.css" />
+    <script type="text/javascript" src="/Scripts/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-locale/build/ext-locale-zh_CN.js"></script>
+    <link rel="stylesheet" href="/build/packages/font-awesome/resources/font-awesome-all.css">
+<!--    <script type="text/javascript" src="/Scripts/js/chain.js"></script>-->
+    <script>
+        Ext.onReady(function () {
+            var token = localStorage.getItem('token');
+            // TreeStore，用于加载菜单数据
+            var menuStore = Ext.create('Ext.data.TreeStore', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/menu/GetTree', 
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+                root: {
+                    text: '根菜单',
+                    id: '0',
+                    expanded: true
+                }
+            });
+
+            // 表单面板，用于编辑/添加菜单项
+            var menuForm = Ext.create('Ext.form.Panel', {
+                title: '菜单信息',
+                region: 'center',
+                bodyPadding: 10,
+                defaults: {
+                    anchor: '100%',
+                    labelWidth: 80
+                },
+                items: [
+                    { xtype: 'textfield', name: 'id' ,fieldLabel: '菜单id'},
+                    { xtype: 'hiddenfield', name: 'parentid' },
+                    { xtype: 'textfield', name: 'text', fieldLabel: '菜单名称', allowBlank: false },
+                    { xtype: 'textfield', name: 'url', fieldLabel: '页面地址' },
+                    { xtype: 'textfield', name: 'iconCls', fieldLabel: '图标类名' },
+                    {
+                        xtype: 'combo',
+                        fieldLabel: '是否叶子',
+                        name: 'leaf',
+                        store: [['true', '是'], ['false', '否']],
+                        editable: false
+                    },
+                    {
+                        xtype: 'combo',
+                        fieldLabel: '是否展开',
+                        name: 'expanded',
+                        store: [['true', '是'], ['false', '否']],
+                        editable: false
+                    },
+                    { xtype: 'numberfield', name: 'orderIndex', fieldLabel: '排序号', minValue: 0 }
+                ],
+                buttons: [
+                    {
+                        text: '保存',
+                        formBind: true,
+                        handler: function () {
+                            var form = menuForm.getForm();
+                            if (form.isValid()) {
+                                var values = form.getValues();  // 获取表单字段
+                                Ext.Ajax.request({
+                                    url: '/menu/Save',
+                                    method: 'POST',
+                                    headers: {
+                                        'Authorization': `Bearer ${token}`,
+                                        'Content-Type': 'application/json'
+                                    },
+                                    jsonData: values,  // 自动转为 JSON
+                                    success: function () {
+                                        Ext.Msg.alert('成功', '保存成功');
+                                        menuStore.load();
+                                        form.reset();
+                                    },
+                                    failure: function () {
+                                        Ext.Msg.alert('失败', '保存失败');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                ]
+            });
+
+            // 树形面板
+            var treePanel = Ext.create('Ext.tree.Panel', {
+                title: '菜单结构',
+                region: 'west',
+                width: 300,
+                store: menuStore,
+                rootVisible: false,
+                collapsible: true,
+                displayField: 'text',  // 显示 title 字段
+                split: true,
+                tbar: [
+                    {
+                        text: '新增子菜单',
+                        handler: function () {
+                            var selected = treePanel.getSelection()[0];
+                            if (selected) {
+                                menuForm.getForm().reset();
+                                menuForm.getForm().setValues({
+                                    parentid: selected.get('id'),
+                                    isLeaf: 'true',
+                                    expanded: 'false'
+                                });
+                            } else {
+                                Ext.Msg.alert('提示', '请先选择一个父菜单');
+                            }
+                        }
+                    },
+                    {
+                        text: '删除菜单',
+                        handler: function () {
+                            var selected = treePanel.getSelection()[0];
+                            if (selected) {
+                                Ext.Msg.confirm('确认', '确定要删除该菜单吗？', function (btn) {
+                                    if (btn === 'yes') {
+                                        Ext.Ajax.request({
+                                            url: '/menu/DeleteMenu?id=' + selected.get('id'),
+                                            method: 'GET',
+                                            success: function () {
+                                                Ext.Msg.alert('提示', '删除成功');
+                                                menuStore.load();
+                                                menuForm.getForm().reset();
+                                            },
+                                            failure: function () {
+                                                Ext.Msg.alert('错误', '删除失败');
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                Ext.Msg.alert('提示', '请先选择一个菜单项');
+                            }
+                        }
+                    },
+                    {
+                        text: '刷新',
+                        handler: function () {
+                            menuStore.load();
+                        }
+                    }
+                ],
+                listeners: {
+                    itemclick: function (view, record) {
+                        // 填充表单
+                        menuForm.getForm().setValues(record.getData());
+                    }
+                }
+            });
+
+            // 页面布局
+            Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                items: [treePanel, menuForm]
+            });
+        });
+    </script>
+    <style>
+        
+        .x-message-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20000
+        }
+        .x-btn-wrap {
+            display: table;
+            height: 100%;
+            width: 100%;
+            margin-top: 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="toolbar" style="height:150px"></div>
+<div id="tableData" style="height: calc(100% - 350px); ">
+
+</div>
+</body>
+</html>

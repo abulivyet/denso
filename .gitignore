@@ -1,0 +1,51 @@
+# Visual Studio / JetBrains / Cursor
+.vs/
+.idea/
+.cr/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.pubxml.user
+
+# Python
+__pycache__/
+*.pyc
+
+# LibreOffice local user profile (not source)
+/Data/
+
+# Build
+[Bb]in/
+[Oo]bj/
+[Pp]ackages/
+*.dll.config
+
+# Local secrets (copy from Web.config.example)
+DENSOKB/Web.config
+
+# Runtime / huge local installs
+**/libreoffice/
+**/program/
+**/ChyLog/
+**/ErrorLog/
+
+# Business uploads and generated tickets
+DENSOKB/Uploads/
+DENSOKB/UploadFiles/**
+!DENSOKB/UploadFiles/
+!DENSOKB/UploadFiles/OriUnit/
+!DENSOKB/UploadFiles/OriUnit/**
+!DENSOKB/UploadFiles/*.xls
+!DENSOKB/UploadFiles/*.xlsx
+!DENSOKB/UploadFiles/DHEC_D.pdf
+!DENSOKB/UploadFiles/*模板*.pdf
+!DENSOKB/UploadFiles/*外箱单*.pdf
+!DENSOKB/UploadFiles/确认书.pdf
+
+# Locks / temp
+*~
+.~lock.*
+*.tmp
+Thumbs.db
+Desktop.ini

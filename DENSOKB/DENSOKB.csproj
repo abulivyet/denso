@@ -1,0 +1,1680 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2056CD9D-1D69-4A4A-B9E4-FB3D4A581BF4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DENSOKB</RootNamespace>
+    <AssemblyName>DENSOKB</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <IISExpressSSLPort>44324</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="cli_basetypes, Version=1.0.20.0, Culture=neutral, PublicKeyToken=ce2cb7e279207b9e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\LibreOffice_25.2_SDK\sdk\cli\cli_basetypes.dll</HintPath>
+    </Reference>
+    <Reference Include="cli_cppuhelper">
+      <HintPath>C:\Program Files\LibreOffice_25.2_SDK\sdk\cli\cli_cppuhelper.dll</HintPath>
+    </Reference>
+    <Reference Include="cli_oootypes, Version=1.0.9.0, Culture=neutral, PublicKeyToken=ce2cb7e279207b9e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\LibreOffice_25.2_SDK\sdk\cli\cli_oootypes.dll</HintPath>
+    </Reference>
+    <Reference Include="cli_ure, Version=1.0.23.0, Culture=neutral, PublicKeyToken=ce2cb7e279207b9e, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files\LibreOffice_25.2_SDK\sdk\cli\cli_ure.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="cli_uretypes, Version=1.0.9.0, Culture=neutral, PublicKeyToken=ce2cb7e279207b9e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\LibreOffice_25.2_SDK\sdk\cli\cli_uretypes.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Ref\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.barcodes, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.barcodes.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-adapter">
+      <HintPath>..\..\..\dll\itext.bouncy-castle-adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-connector, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.bouncy-castle-connector.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.commons, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.commons.9.1.0\lib\net461\itext.commons.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.forms, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.forms.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.io, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.io.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.kernel, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.layout, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.layout.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfa, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfua, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.pdfua.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.sign, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.sign.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.styledxmlparser, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.styledxmlparser.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.svg, Version=9.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.9.1.0\lib\net461\itext.svg.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
+    <Reference Include="JWT, Version=11.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Ref\JWT.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.2.6\lib\net46\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.2.6\lib\net46\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.5.0.0\lib\net461\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.5.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.30.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.30\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\..\dll\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\..\..\dll\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\..\..\dll\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\..\..\dll\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="QRCoder">
+      <HintPath>..\..\..\dll\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress, Version=0.37.2.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.37.2\lib\net462\SharpCompress.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=11.4.10.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\BaiduNetdiskDownload\Spire.PDF_for_.net_v12.2.6\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.1.0\lib\net463\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Console, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.0.0\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.Tracing.4.1.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Globalization.Calendars, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.0.1\lib\net46\System.Globalization.Calendars.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.1.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.1.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.0.1\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.0.1\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.0\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.1.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Expressions.4.1.0\lib\net463\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.1.0\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Net.Sockets, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.1.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.TypeExtensions.4.3.0\lib\net462\System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.1.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.2.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.0.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.0.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.1.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.8.0.0\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.0\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.RegularExpressions.4.1.0\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Thread, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Thread.4.0.0\lib\net46\System.Threading.Thread.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.30\lib\net452\Ubiety.Dns.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ZstdNet">
+      <HintPath>E:\南沙电装\bin\ZstdNet.dll</HintPath>
+    </Reference>
+    <Reference Include="ZstdSharp">
+      <HintPath>E:\南沙电装\bin\ZstdSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\chainController.cs" />
+    <Compile Include="Controllers\CHAMdisposeController.cs" />
+    <Compile Include="Controllers\DHECdisposeController.cs" />
+    <Compile Include="Controllers\DownloadFileController.cs" />
+    <Compile Include="Controllers\ExportRptController.cs" />
+    <Compile Include="Controllers\FTCEdisposeController.cs" />
+    <Compile Include="Controllers\FTECSuppliesController.cs" />
+    <Compile Include="Controllers\FTETdisposeController.cs" />
+    <Compile Include="Controllers\FTETnew.cs" />
+    <Compile Include="Controllers\GHACController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\orderHWorkController.cs" />
+    <Compile Include="Controllers\orderImportController.cs" />
+    <Compile Include="Controllers\orderOutGoodsController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\RoleMenuController.cs" />
+    <Compile Include="Controllers\UnitController.cs" />
+    <Compile Include="Controllers\uploadController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\DataHelper.cs" />
+    <Compile Include="Helper\HttpPost.cs" />
+    <Compile Include="Helper\LiberOfficeHelper.cs" />
+    <Compile Include="Helper\PulicHelper.cs" />
+    <Compile Include="Helper\SpireHelper.cs" />
+    <Compile Include="Helper\XErrorLogToolMDM.cs" />
+    <Compile Include="Libs\baseMessage.cs" />
+    <Compile Include="Libs\chainService.cs" />
+    <Compile Include="Libs\CHAMService.cs" />
+    <Compile Include="Libs\DataBaseQuery.cs" />
+    <Compile Include="Libs\DHECdisposeService.cs" />
+    <Compile Include="Libs\FTETdisposeService.cs" />
+    <Compile Include="Libs\GHACService.cs" />
+    <Compile Include="Libs\JwtAuthorizeAttribute.cs" />
+    <Compile Include="Libs\MenuService.cs" />
+    <Compile Include="Libs\orderHWorkService.cs" />
+    <Compile Include="Libs\orderimportService.cs" />
+    <Compile Include="Libs\orderOutGoodsService.cs" />
+    <Compile Include="Libs\RoleMenuService.cs" />
+    <Compile Include="Libs\TimerHandleFile.cs" />
+    <Compile Include="Libs\UnitService.cs" />
+    <Compile Include="Libs\UserService.cs" />
+    <Compile Include="Libs\Utils.cs" />
+    <Compile Include="Models\Bundle.cs" />
+    <Compile Include="Models\CHAMBoard.cs" />
+    <Compile Include="Models\CHAMconfirm.cs" />
+    <Compile Include="Models\CHAMDeliveryNote.cs" />
+    <Compile Include="Models\ChamInputDto.cs" />
+    <Compile Include="Models\CHAMOrdWeek.cs" />
+    <Compile Include="Models\CHAMOrdWeekWithOrig.cs" />
+    <Compile Include="Models\CHAMStackLabel.cs" />
+    <Compile Include="Models\Confirm.cs" />
+    <Compile Include="Models\ConfirmBundle.cs" />
+    <Compile Include="Models\ConfirmDto.cs" />
+    <Compile Include="Models\FtceDetail.cs" />
+    <Compile Include="Models\FtceDto.cs" />
+    <Compile Include="Models\FtceSuppliesDto.cs" />
+    <Compile Include="Models\FTETdetailEntity.cs" />
+    <Compile Include="Models\FTETEntity.cs" />
+    <Compile Include="Models\ftet_chain.cs" />
+    <Compile Include="Models\inpdetail2.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\MenuDto.cs" />
+    <Compile Include="Models\MenuTypeDto.cs" />
+    <Compile Include="Models\OrderDownload.cs" />
+    <Compile Include="Models\orderImport.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\OrdWeekOrder.cs" />
+    <Compile Include="Models\OriginalUnit.cs" />
+    <Compile Include="Models\Pagination.cs" />
+    <Compile Include="Models\ResParameter.cs" />
+    <Compile Include="Models\RoleMenuDto.cs" />
+    <Compile Include="Models\ShipmentItem.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\BouncyCastle.Crypto.dll" />
+    <Content Include="bin\DENSOKB.dll" />
+    <Content Include="bin\DENSOKB.pdb" />
+    <Content Include="bin\Google.Protobuf.dll" />
+    <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="bin\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\MySql.Data.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\NPOI.dll" />
+    <Content Include="bin\NPOI.OOXML.dll" />
+    <Content Include="bin\NPOI.OpenXml4Net.dll" />
+    <Content Include="bin\NPOI.OpenXmlFormats.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Console.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Net.Http.dll" />
+    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\roslyn\System.ValueTuple.dll" />
+    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\SharpCompress.dll" />
+    <Content Include="bin\System.Buffers.dll" />
+    <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\System.Memory.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Numerics.Vectors.dll" />
+    <Content Include="bin\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\System.Text.Encodings.Web.dll" />
+    <Content Include="bin\System.Text.Json.dll" />
+    <Content Include="bin\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\System.ValueTuple.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\Ubiety.Dns.Core.dll" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="images\login.jpg" />
+    <Content Include="images\LOGO.png" />
+    <Content Include="images\orderImport\book.png" />
+    <Content Include="images\orderImport\box.png" />
+    <Content Include="images\orderImport\confirm.png" />
+    <Content Include="images\orderImport\label.png" />
+    <Content Include="index.html" />
+    <Content Include="login.html" />
+    <Content Include="page\chain.html" />
+    <Content Include="page\menu.html" />
+    <Content Include="page\orderCHAMout.html" />
+    <Content Include="page\orderCHAMweek.html" />
+    <Content Include="page\orderGHACdayplan.html" />
+    <Content Include="page\orderDHECdayplan.html" />
+    <Content Include="page\orderHWork.html" />
+    <Content Include="page\orderImport.html" />
+    <Content Include="page\orderGHACweek.html" />
+    <Content Include="page\orderDHECGoods.html" />
+    <Content Include="page\page01.html" />
+    <Content Include="page\roleMenu.html" />
+    <Content Include="page\unit.html" />
+    <Content Include="page\upload.html" />
+    <Content Include="page\user.html" />
+    <Content Include="page\user_role.html" />
+    <Content Include="Ref\JWT.dll" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\config.rb" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\ext-theme-crisp-all-debug.scss" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\ext-theme-crisp-all-rtl-debug.scss" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\Readme.md" />
+    <Content Include="bin\DENSOKB.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\extjs\ext-all.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-af-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-af.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-bg-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-bg.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ca-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ca.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-cs-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-cs.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-da-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-da.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-de-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-de.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-el_GR-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-el_GR.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-en-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-en.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-en_AU-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-en_AU.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-en_GB-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-en_GB.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-es-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-es.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-et-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-et.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fa-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fa.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fi-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fi.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fr-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fr.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fr_CA-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-fr_CA.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-gr-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-gr.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-he-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-he.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-hr-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-hr.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-hu-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-hu.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-id-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-id.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-it-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-it.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ja-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ja.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ko-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ko.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-lt-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-lt.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-lv-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-lv.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-mk-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-mk.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-nl-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-nl.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-no_NB-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-no_NB.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-no_NN-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-no_NN.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pl-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pl.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pt-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pt.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pt_BR-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pt_BR.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pt_PT-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-pt_PT.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ro-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ro.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ru-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ru.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sk-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sk.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sl-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sl.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sr-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sr.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sr_RS-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sr_RS.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sv_SE-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-sv_SE.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-th-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-th.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-tr-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-tr.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ukr-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-ukr.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-vn-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-vn.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-zh_CN-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-zh_CN.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-zh_TW-debug.js" />
+    <Content Include="Scripts\extjs\ext-locale\build\ext-locale-zh_TW.js" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\ext-theme-crisp-debug.js" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\ext-theme-crisp.js" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-debug.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-debug_01.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-debug_02.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-rtl-debug.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-rtl-debug_01.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-rtl-debug_02.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-rtl.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-rtl_01.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all-rtl_02.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all_01.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\ext-theme-crisp-all_02.css" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-arrow-open-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-arrow-open.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-scroll-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-scroll-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-split-arrow-open-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-split-arrow-open.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-split-arrow-over-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-split-arrow-over.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-split-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\breadcrumb\default-split-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn-group\btn-group-default-framed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn-group\btn-group-default-framed-notitle-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn-group\btn-group-default-framed-notitle-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn-group\btn-group-default-framed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-large-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-medium-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-small-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-large-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-medium-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-default-toolbar-small-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-large-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-medium-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-focus-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-focus-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-pressed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\btn\btn-plain-toolbar-small-pressed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-large-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-large-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-large-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-large-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-large-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-large-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-medium-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-medium-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-medium-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-medium-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-medium-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-medium-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-small-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-small-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-small-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-small-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-small-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-small-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-large-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-large-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-large-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-large-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-large-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-large-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-medium-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-medium-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-medium-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-medium-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-medium-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-medium-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-small-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-small-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-small-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-small-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-small-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\default-toolbar-small-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\grid-cell-small-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\grid-cell-small-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\grid-cell-small-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\grid-cell-small-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\grid-cell-small-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-large-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-large-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-large-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-large-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-large-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-large-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-medium-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-medium-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-medium-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-medium-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-medium-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-medium-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-small-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-small-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-small-s-arrow-b-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-small-s-arrow-b.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-small-s-arrow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\button\plain-toolbar-small-s-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\datepicker\arrow-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\datepicker\arrow-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\datepicker\month-arrow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\dd\drop-add.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\dd\drop-no.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\dd\drop-yes.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\editor\tb-sprite.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\fieldset\collapse-tool.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\checkbox.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\clear-trigger-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\clear-trigger.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\date-trigger-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\date-trigger.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\exclamation.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\radio.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\search-trigger-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\search-trigger.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\spinner-down-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\spinner-down.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\spinner-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\spinner-up-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\spinner-up.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\spinner.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\tag-field-item-close.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\trigger-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\form\trigger.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid-row-editor-buttons\grid-row-editor-buttons-default-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid-row-editor-buttons\grid-row-editor-buttons-default-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid-row-editor-buttons\grid-row-editor-buttons-default-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid-row-editor-buttons\grid-row-editor-buttons-default-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\col-move-bottom.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\col-move-top.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\columns.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\dd-insert-arrow-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\dd-insert-arrow-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\dirty-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\dirty.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\drop-no.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\drop-yes.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\filters\equals.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\filters\find.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\filters\greater_than.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\filters\less_than.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\group-by.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\group-collapse.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\group-expand.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\hd-pop.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\hmenu-asc.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\hmenu-desc.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\hmenu-lock.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\hmenu-unlock.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\loading.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\page-first.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\page-last.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\page-next.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\page-prev.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\pick-button.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\refresh.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\sort_asc.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\grid\sort_desc.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\loadmask\loading.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\magnify.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\menu\default-checked.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\menu\default-group-checked.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\menu\default-menu-parent-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\menu\default-menu-parent.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\menu\default-scroll-bottom.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\menu\default-scroll-top.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\menu\default-unchecked.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-left-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-left-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-left-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-right-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-right-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-right-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-collapsed-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-left-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-left-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-left-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-right-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-right-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-right-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-default-framed-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-left-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-left-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-left-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-right-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-right-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-right-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-collapsed-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-left-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-left-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-left-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-right-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-right-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-right-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel-header\panel-header-light-framed-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel\panel-default-framed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel\panel-default-framed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel\panel-light-framed-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\panel\panel-light-framed-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\shared\icon-error.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\shared\icon-info.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\shared\icon-question.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\shared\icon-warning.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\sizer\e-handle.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\sizer\ne-handle.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\sizer\nw-handle.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\sizer\s-handle.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\sizer\se-handle.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\sizer\sw-handle.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\slider\slider-bg.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\slider\slider-thumb.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\slider\slider-v-bg.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\slider\slider-v-thumb.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-plain-scroll-bottom.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-plain-scroll-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-plain-scroll-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-plain-scroll-top.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-scroll-bottom.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-scroll-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-scroll-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab-bar\default-scroll-top.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-disabled-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-close.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-disabled-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-left-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-disabled-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-right-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-disabled-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-disabled-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-disabled-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-active-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-active-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-active-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-focus-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-over-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-over-fbg.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-over-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tab\tab-default-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tip\tip-default-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tip\tip-default-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tip\tip-form-invalid-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tip\tip-form-invalid-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\default-more-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\default-more.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\default-scroll-bottom.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\default-scroll-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\default-scroll-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\default-scroll-top.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\footer-more-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\footer-more.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\footer-scroll-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\toolbar\footer-scroll-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tools\tool-sprites-dark.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tools\tool-sprites.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\arrows-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\arrows.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-above.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-add.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-add.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-append.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-below.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-between.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-between.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-no.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-no.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-over.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-over.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-under.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-under.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-yes.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\drop-yes.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-end-minus-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-end-minus.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-end-plus-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-end-plus.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-end-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-end.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-line-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-line.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-minus-nl-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-minus-nl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-minus-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-minus.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-plus-nl-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-plus-nl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-plus-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-plus.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\elbow.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\folder-open-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\folder-open.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\folder-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\folder.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\leaf-rtl.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\leaf.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\tree\loading.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\util\splitter\mini-bottom.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\util\splitter\mini-left.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\util\splitter\mini-right.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\util\splitter\mini-top.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\ux\dashboard\magnify.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-bottom-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-bottom-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-left-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-left-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-left-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-right-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-right-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-right-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-collapsed-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-left-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-left-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-left-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-right-corners-rtl.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-right-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-right-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-top-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window-header\window-header-default-top-sides.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window\toast\fade-blue.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window\toast\fader.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window\toast\icon16_error.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window\toast\icon16_info.png" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window\window-default-corners.gif" />
+    <Content Include="Scripts\extjs\ext-theme-crisp\resources\images\window\window-default-sides.gif" />
+    <Content Include="Scripts\extjs\ext.js" />
+    <Content Include="Scripts\extjs\index.js" />
+    <Content Include="Scripts\extjs\jquery-1.2.1.min.js" />
+    <Content Include="Scripts\extjs\menu-collapsed.js" />
+    <Content Include="Scripts\extjs\menu.js" />
+    <Content Include="Scripts\extjs\shared\example.css" />
+    <Content Include="Scripts\extjs\shared\examples.js" />
+    <Content Include="Scripts\extjs\shared\extjs\App.js" />
+    <Content Include="Scripts\extjs\shared\extjs\css\extjs.css" />
+    <Content Include="Scripts\extjs\shared\extjs\images\c-sep-l.gif" />
+    <Content Include="Scripts\extjs\shared\extjs\images\extanim32.gif" />
+    <Content Include="Scripts\extjs\shared\extjs\images\sample-over.gif" />
+    <Content Include="Scripts\extjs\shared\extjs\site.js" />
+    <Content Include="Scripts\extjs\shared\icons\fam\accept.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\accept.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\add.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\add.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\application_go.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\application_view_list.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\book.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\cog.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\cog.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\cog_edit.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\connect.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\connect.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\control_rewind.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\cross.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\delete.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\error.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\error.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\feed_add.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\feed_delete.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\feed_error.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\folder_go.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\folder_go.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\folder_wrench.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\grid.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\image_add.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\information.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\plugin.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\plugin_add.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\rss_go.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\SILK.txt" />
+    <Content Include="Scripts\extjs\shared\icons\fam\table_refresh.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_add.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_add.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_comment.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_delete.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_delete.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_edit.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_female.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_female.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_gray.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_green.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_green.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_orange.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_red.png" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_suit.gif" />
+    <Content Include="Scripts\extjs\shared\icons\fam\user_suit.png" />
+    <Content Include="Scripts\extjs\shared\include-ext.js" />
+    <Content Include="Scripts\extjs\shared\options-toolbar.js" />
+    <Content Include="Scripts\extjs\shared\screens\acc-tree.gif" />
+    <Content Include="Scripts\extjs\shared\screens\actions-grid.png" />
+    <Content Include="Scripts\extjs\shared\screens\actions.png" />
+    <Content Include="Scripts\extjs\shared\screens\advanced-dataview.png" />
+    <Content Include="Scripts\extjs\shared\screens\air.gif" />
+    <Content Include="Scripts\extjs\shared\screens\amf-grid.png" />
+    <Content Include="Scripts\extjs\shared\screens\anchor.gif" />
+    <Content Include="Scripts\extjs\shared\screens\animated-dataview.png" />
+    <Content Include="Scripts\extjs\shared\screens\app-simple.gif" />
+    <Content Include="Scripts\extjs\shared\screens\area-browsers.gif" />
+    <Content Include="Scripts\extjs\shared\screens\blank.gif" />
+    <Content Include="Scripts\extjs\shared\screens\border-layout.png" />
+    <Content Include="Scripts\extjs\shared\screens\buffer-grid.png" />
+    <Content Include="Scripts\extjs\shared\screens\buttons.gif" />
+    <Content Include="Scripts\extjs\shared\screens\calendar.png" />
+    <Content Include="Scripts\extjs\shared\screens\chart-area-browser.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-area.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-bar-renderer.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-bar-stacked.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-bar.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-column.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-line.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-mixed.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-pie-renderer.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-pie.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-radar-fill.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-radar.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-reload.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-scatter.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-stacked.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chart-themed.gif" />
+    <Content Include="Scripts\extjs\shared\screens\charts.gif" />
+    <Content Include="Scripts\extjs\shared\screens\chooser.gif" />
+    <Content Include="Scripts\extjs\shared\screens\column2.gif" />
+    <Content Include="Scripts\extjs\shared\screens\combo-custom.png" />
+    <Content Include="Scripts\extjs\shared\screens\combo.png" />
+    <Content Include="Scripts\extjs\shared\screens\complex-layout.png" />
+    <Content Include="Scripts\extjs\shared\screens\data-associations.gif" />
+    <Content Include="Scripts\extjs\shared\screens\data-view.png" />
+    <Content Include="Scripts\extjs\shared\screens\dd-celltocell.png" />
+    <Content Include="Scripts\extjs\shared\screens\dd-fieldtogrid.png" />
+    <Content Include="Scripts\extjs\shared\screens\dd-gridtoformpanel.png" />
+    <Content Include="Scripts\extjs\shared\screens\dd-gridtogrid.png" />
+    <Content Include="Scripts\extjs\shared\screens\dd-zones.png" />
+    <Content Include="Scripts\extjs\shared\screens\debug-console.gif" />
+    <Content Include="Scripts\extjs\shared\screens\desktop.png" />
+    <Content Include="Scripts\extjs\shared\screens\direct.gif" />
+    <Content Include="Scripts\extjs\shared\screens\docs.gif" />
+    <Content Include="Scripts\extjs\shared\screens\draw-logos.png" />
+    <Content Include="Scripts\extjs\shared\screens\draw-rotate-text.gif" />
+    <Content Include="Scripts\extjs\shared\screens\draw-sencha.png" />
+    <Content Include="Scripts\extjs\shared\screens\draw-tiger.gif" />
+    <Content Include="Scripts\extjs\shared\screens\editor.png" />
+    <Content Include="Scripts\extjs\shared\screens\feeds.png" />
+    <Content Include="Scripts\extjs\shared\screens\field-container.gif" />
+    <Content Include="Scripts\extjs\shared\screens\filtered-tree.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-absolute.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-adv-vtypes.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-check-radio.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-checkout.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-contact.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-custom-access.gif" />
+    <Content Include="Scripts\extjs\shared\screens\form-custom.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-dashboard.gif" />
+    <Content Include="Scripts\extjs\shared\screens\form-date.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-dynamic.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-field-layout.gif" />
+    <Content Include="Scripts\extjs\shared\screens\form-field-types.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-fieldcontainer.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-file-upload.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-grid-binding.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-hbox.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-multiselect.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-registration.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-slider.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-spinner.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-vbox.png" />
+    <Content Include="Scripts\extjs\shared\screens\form-xml.png" />
+    <Content Include="Scripts\extjs\shared\screens\forum.gif" />
+    <Content Include="Scripts\extjs\shared\screens\gauge.gif" />
+    <Content Include="Scripts\extjs\shared\screens\gmap-panel.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-array.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-buffer.gif" />
+    <Content Include="Scripts\extjs\shared\screens\grid-cell-editing.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-columngrouping.gif" />
+    <Content Include="Scripts\extjs\shared\screens\grid-data-binding.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-edit.gif" />
+    <Content Include="Scripts\extjs\shared\screens\grid-filter.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-from-markup.gif" />
+    <Content Include="Scripts\extjs\shared\screens\grid-group-summaries.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-grouped-headers.gif" />
+    <Content Include="Scripts\extjs\shared\screens\grid-grouping.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-infinite-scroll.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-live-search.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-locking.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-multiple-sorting.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-paging.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-plugins.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-property.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-reconfigure.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-row-editor.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-summary.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-transform.png" />
+    <Content Include="Scripts\extjs\shared\screens\grid-xml.gif" />
+    <Content Include="Scripts\extjs\shared\screens\group-tabs.png" />
+    <Content Include="Scripts\extjs\shared\screens\grouped-bar.gif" />
+    <Content Include="Scripts\extjs\shared\screens\grouped-tab.gif" />
+    <Content Include="Scripts\extjs\shared\screens\heterogeneous-tree.png" />
+    <Content Include="Scripts\extjs\shared\screens\history.png" />
+    <Content Include="Scripts\extjs\shared\screens\keyboard.gif" />
+    <Content Include="Scripts\extjs\shared\screens\kitchensink.gif" />
+    <Content Include="Scripts\extjs\shared\screens\layout-absolute.gif" />
+    <Content Include="Scripts\extjs\shared\screens\layout-accordion.gif" />
+    <Content Include="Scripts\extjs\shared\screens\layout-anchor.gif" />
+    <Content Include="Scripts\extjs\shared\screens\layout-browser.png" />
+    <Content Include="Scripts\extjs\shared\screens\layout-column.gif" />
+    <Content Include="Scripts\extjs\shared\screens\layout-form.gif" />
+    <Content Include="Scripts\extjs\shared\screens\layout-table.gif" />
+    <Content Include="Scripts\extjs\shared\screens\layout-vbox.gif" />
+    <Content Include="Scripts\extjs\shared\screens\list-view.png" />
+    <Content Include="Scripts\extjs\shared\screens\live-animated.gif" />
+    <Content Include="Scripts\extjs\shared\screens\live-updated.gif" />
+    <Content Include="Scripts\extjs\shared\screens\locale-dutch.png" />
+    <Content Include="Scripts\extjs\shared\screens\locale-switch.png" />
+    <Content Include="Scripts\extjs\shared\screens\msg-box.png" />
+    <Content Include="Scripts\extjs\shared\screens\multisort-dataview.png" />
+    <Content Include="Scripts\extjs\shared\screens\nested-loading.gif" />
+    <Content Include="Scripts\extjs\shared\screens\organizer.png" />
+    <Content Include="Scripts\extjs\shared\screens\panel-bubble.gif" />
+    <Content Include="Scripts\extjs\shared\screens\panel.png" />
+    <Content Include="Scripts\extjs\shared\screens\pivotgrid-cellcls.gif" />
+    <Content Include="Scripts\extjs\shared\screens\pivotgrid-people.gif" />
+    <Content Include="Scripts\extjs\shared\screens\pivotgrid.gif" />
+    <Content Include="Scripts\extjs\shared\screens\portal.png" />
+    <Content Include="Scripts\extjs\shared\screens\progress-bar-pager.png" />
+    <Content Include="Scripts\extjs\shared\screens\progress.png" />
+    <Content Include="Scripts\extjs\shared\screens\qtips.png" />
+    <Content Include="Scripts\extjs\shared\screens\reload-chart.gif" />
+    <Content Include="Scripts\extjs\shared\screens\resizable.png" />
+    <Content Include="Scripts\extjs\shared\screens\responsive-design.png" />
+    <Content Include="Scripts\extjs\shared\screens\restful-thumb.gif" />
+    <Content Include="Scripts\extjs\shared\screens\rich-tips.gif" />
+    <Content Include="Scripts\extjs\shared\screens\sandbox.gif" />
+    <Content Include="Scripts\extjs\shared\screens\side-tabs.png" />
+    <Content Include="Scripts\extjs\shared\screens\slider-pager.png" />
+    <Content Include="Scripts\extjs\shared\screens\slider.png" />
+    <Content Include="Scripts\extjs\shared\screens\soap-grid.png" />
+    <Content Include="Scripts\extjs\shared\screens\spotlight.png" />
+    <Content Include="Scripts\extjs\shared\screens\state-saving.png" />
+    <Content Include="Scripts\extjs\shared\screens\statusbar-adv.png" />
+    <Content Include="Scripts\extjs\shared\screens\statusbar-demo.png" />
+    <Content Include="Scripts\extjs\shared\screens\tab-panel-scroller-menu.gif" />
+    <Content Include="Scripts\extjs\shared\screens\tabs-adv.png" />
+    <Content Include="Scripts\extjs\shared\screens\tabs.png" />
+    <Content Include="Scripts\extjs\shared\screens\tasks.png" />
+    <Content Include="Scripts\extjs\shared\screens\templates.png" />
+    <Content Include="Scripts\extjs\shared\screens\themes.png" />
+    <Content Include="Scripts\extjs\shared\screens\toolbar-actions.gif" />
+    <Content Include="Scripts\extjs\shared\screens\toolbar-button-groups.png" />
+    <Content Include="Scripts\extjs\shared\screens\toolbar-droppable.png" />
+    <Content Include="Scripts\extjs\shared\screens\toolbar-overflow.gif" />
+    <Content Include="Scripts\extjs\shared\screens\toolbar-reorderable.png" />
+    <Content Include="Scripts\extjs\shared\screens\toolbar.png" />
+    <Content Include="Scripts\extjs\shared\screens\tree-check.png" />
+    <Content Include="Scripts\extjs\shared\screens\tree-columns.png" />
+    <Content Include="Scripts\extjs\shared\screens\tree-custom-node-logic.png" />
+    <Content Include="Scripts\extjs\shared\screens\tree-reorder.png" />
+    <Content Include="Scripts\extjs\shared\screens\tree-two.png" />
+    <Content Include="Scripts\extjs\shared\screens\tree-xml-loader.png" />
+    <Content Include="Scripts\extjs\shared\screens\window-layout.png" />
+    <Content Include="Scripts\extjs\shared\screens\window.png" />
+    <Content Include="Scripts\extjs\shared\screens\writer-thumb.png" />
+    <Content Include="Scripts\extjs\shared\states.js" />
+    <Content Include="Scripts\extjs\shared\states_remote\states.js" />
+    <Content Include="Scripts\extjs\shared\states_remote\states.php" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\js\chain.js" />
+    <Content Include="Scripts\js\index.js" />
+    <Content Include="Scripts\js\orderCHAMout.js" />
+    <Content Include="Scripts\js\orderCHAMweek.js" />
+    <Content Include="Scripts\js\orderGHACdayplan.js" />
+    <Content Include="Scripts\js\orderDHECdayplan.js" />
+    <Content Include="Scripts\js\orderGHACweek.js" />
+    <Content Include="Scripts\js\orderHWork.js" />
+    <Content Include="Scripts\js\orderDHECGoods.js" />
+    <Content Include="Scripts\js\tokenCheck.js" />
+    <Content Include="Scripts\js\unit.js" />
+    <Content Include="Scripts\js\uploadFiles.js" />
+    <Content Include="Scripts\js\user.js" />
+    <Content Include="Scripts\js\user_role.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="style\css.css" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="bin\zh-Hans\" />
+    <Folder Include="UploadFiles\" />
+    <Folder Include="Uploads\temp\22469a5a-162b-4c20-8abf-81b433a359f3\" />
+    <Folder Include="Uploads\temp\dc723b90-daf8-4540-bada-6eb6cdd637c0\" />
+    <Folder Include="Uploads\temp\e0f7d874-5fbf-4f38-a0e4-fb986ffc4544\" />
+    <Folder Include="Uploads\temp\f53ba0f0-a44f-4cf8-ab00-48cf287c06f6\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <DependentUpon>login.html</DependentUpon>
+    </None>
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57538</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44324/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

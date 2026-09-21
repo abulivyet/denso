@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link type="text/css" rel="Stylesheet" href="/Scripts/extjs/ext-theme-neptune/resources/ext-theme-neptune-all.css" />
+
+    <script type="text/javascript" src="/Scripts/extjs/jquery-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="/Scripts/extjs/ext-locale/build/ext-locale-zh_CN.js"></script>
+
+    <link type="text/css" rel="Stylesheet" href="/style/css.css" />
+
+    <script>
+        Ext.onReady(function () {
+            var btnImport = Ext.create('Ext.Button', {
+                renderTo: 'open-btn',
+                text: "导入生产需求",
+                width: 100,
+                height: 30,
+                style: 'margin:10px',
+                listeners: {
+                    "click": function () {
+                        var win = new Ext.window.Window({
+                            id: 'openwin',
+                            width: 500,
+                            height: 180,
+                            title: '导入生产需求',
+                            constrain: true,
+                            //autoShow: true,
+                            modal: true,
+                            resizable: false,
+                            items: [
+                                Ext.create('Ext.form.Panel', {
+                                    width: '100%',
+                                    bodyPadding: 10,
+                                    frame: true,
+                                    items: [{
+                                        xtype: 'filefield',
+                                        name: 'deployFile',
+                                        fieldLabel: 'Excel文件',
+                                        style: "margin:30px;",
+                                        labelWidth: 70,
+                                        msgTarget: 'side',
+                                        fileUpload: true,
+                                        allowBlank: false,
+                                        anchor: '100%',
+                                        buttonText: '浏览...',
+                                        regex: /^.+\.(xls|xlsx)$/,
+                                        regexText: "只能选择Excel文件"
+                                    }],
+
+                                    buttons: [{
+                                        text: '导入',
+                                        buttonAlign: 'center',
+                                        handler: function () {
+                                            var form = this.up('form').getForm();
+                                            if (form.isValid()) {
+                                                form.submit({
+                                                    method: 'post',
+                                                    enctype: "multipart/form-data",
+                                                    url: '../upload/uploadFile',
+                                                    waitMsg: '正在上传中...',
+                                                    success: function (fp, o) {
+                                                        console.log(o);
+                                                        win.close();
+
+                                                        Ext.Msg.alert('Success', '导入成功');
+
+                                                    },
+                                                    failure: function (form, action) {
+                                                        console.log(action);
+                                                        Ext.Msg.alert('导入失败', action.result.reason);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    },
+                                    {
+                                        text: '关闭',
+                                        buttonAlign: 'center',
+                                        handler: function () {
+                                            win.close();
+                                        }
+                                    }
+                                    ]
+                                })
+                            ]
+                        });
+
+                        win.show();
+
+                        $('.x-mask').css('background-color', '#000');
+                        $('.x-mask').css('opacity', '0.2');
+                    }
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div id="open-btn"> </div>
+</body>
+</html>
