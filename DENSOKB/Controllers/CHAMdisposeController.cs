@@ -836,9 +836,14 @@ namespace DENSOKB.Controllers
                 
                 foreach (ShipmentItem shipmentItem in items)
                 {
-                    //var chamOrdWeek = chamService.getChamOrdWeeks(shipmentItem.PartNumber, shipmentItem.Line,shipmentItem.InDate.ToString());
-                    var chamOrdWeek = chamService.getChamOrdWeeks(shipmentItem.PartNumber, shipmentItem.Line,
-                         shipmentItem.InDate.ToString());
+                    var demandedDate = shipmentItem.InDate.ToString();
+                    var chamOrdWeek = chamService.getChamOrdWeeks(
+                        shipmentItem.PartNumber, shipmentItem.Line, demandedDate, shipmentItem.Quantity.ToString());
+                    if (chamOrdWeek == null)
+                    {
+                        chamOrdWeek = chamService.getChamOrdWeeks(
+                            shipmentItem.PartNumber, shipmentItem.Line, demandedDate);
+                    }
 
 
                     if (chamOrdWeek != null)

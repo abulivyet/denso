@@ -1888,13 +1888,14 @@ AND ou.factory LIKE CONCAT('%',
             }
             if (startPageINSTRUCTIONS != -1) {
                 string tempID = Guid.NewGuid().ToString();
+                string tempInstructions = Path.Combine(outputINSTRUCTIONS, tempID);
                 SpireHelper.PdfSplit(
-                    filePath, outputINSTRUCTIONS, startPageINSTRUCTIONS, 1, 1,
+                    filePath, tempInstructions, startPageINSTRUCTIONS, 1, 1,
                     SpireSplit.EnumNameRule.Customize,
                    new List<Rectangle>() { new Rectangle(40, 28, 100, 20) }.ToArray(),
                     new Rectangle(), true);
 
-                DirectoryInfo dir = new DirectoryInfo(outputINSTRUCTIONS);
+                DirectoryInfo dir = new DirectoryInfo(tempInstructions);
 
                 List<FileInfo> fileAll = dir.GetFiles().ToList();
 
@@ -1913,9 +1914,13 @@ AND ou.factory LIKE CONCAT('%',
 
                 foreach (var item in dictFiles)
                 {
-                    string output2 = HttpContext.Current.Server.MapPath("~/");
-                    output2 += "UploadFiles\\GHAC\\INSTRUCTIONS\\" + item.Key + ".pdf";
+                    string output2 = Path.Combine(outputINSTRUCTIONS, item.Key + ".pdf");
                     SpireHelper.Merge(1, 1, item.Value.ToArray(), output2);
+                }
+
+                if (Directory.Exists(tempInstructions))
+                {
+                    Directory.Delete(tempInstructions, true);
                 }
 
             }

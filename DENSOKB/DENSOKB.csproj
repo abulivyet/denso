@@ -191,9 +191,9 @@
       <HintPath>..\packages\SharpCompress.0.37.2\lib\net462\SharpCompress.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Spire.Pdf, Version=11.4.10.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+    <Reference Include="Spire.Pdf, Version=12.2.6.0, Culture=neutral, PublicKeyToken=f7d860432a61abc2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\BaiduNetdiskDownload\Spire.PDF_for_.net_v12.2.6\net40\Spire.Pdf.dll</HintPath>
+      <HintPath>..\..\..\..\Spire.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

@@ -239,29 +239,71 @@ values (@ord_status,@orderCode, @publishDate, @cusname, @court_summons, @materia
         {
             if (shipmentItems == null || shipmentItems.Count == 0) return new List<CHAMOrdWeek>();
 
-            var conditions = new List<string>();
-
+            var result = new List<CHAMOrdWeek>();
             foreach (var item in shipmentItems)
             {
-                string condition = string.Format(
-                    "(material_code = '{0}' AND project_code = '{1}' AND demanded_date = '{2}' )",
-                    item.PartNumber.Replace("'", "''"),
-                    item.Line.Replace("'", "''"),
-                    item.InDate.ToString("yyyy-MM-dd")
-                );
+                var week = QueryWeekOrder(item, true);
+                if (week != null)
+                {
+                    result.Add(week);
+                    continue;
+                }
 
-                conditions.Add(condition);
+                var weeks = QueryWeekOrderList(item);
+                if (weeks.Count == 0)
+                {
+                    continue;
+                }
+
+                double pdfQty = item.Quantity;
+                double sumQty = 0;
+                foreach (var w in weeks)
+                {
+                    double q;
+                    if (double.TryParse((w.quantity ?? "").Replace(",", ""), out q))
+                    {
+                        sumQty += q;
+                    }
+                }
+
+                if (weeks.Count > 1 && Math.Abs(sumQty - pdfQty) < 0.01)
+                {
+                    result.AddRange(weeks);
+                }
+                else
+                {
+                    result.Add(weeks[0]);
+                }
             }
-
-            //var strSql = "SELECT * FROM cham_ord_week WHERE " + string.Join(" OR ", conditions);
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT * FROM cham_ord_week WHERE " + string.Join(" OR ", conditions));
-            strSql.Append("and order_type like '%量产%' ");
-
-            DataTable         resultTable = DataHelper.Query(strSql.ToString());
-            List<CHAMOrdWeek> result      = DataHelper.MapToEntities<CHAMOrdWeek>(resultTable);
-
             return result;
+        }
+
+        private CHAMOrdWeek QueryWeekOrder(ShipmentItem item, bool matchQuantity)
+        {
+            string material = (item.PartNumber ?? "").Replace("'", "''");
+            string project = (item.Line ?? "").Replace("'", "''");
+            string date = item.InDate.ToString("yyyy-MM-dd");
+            string sql = string.Format(
+                "SELECT * FROM cham_ord_week WHERE material_code = '{0}' AND project_code = '{1}' AND demanded_date = '{2}' AND order_type LIKE '%量产%'",
+                material, project, date);
+            if (matchQuantity)
+            {
+                sql += string.Format(" AND quantity = '{0}'", item.Quantity);
+            }
+            DataTable table = DataHelper.Query(sql);
+            return DataHelper.MapToObject<CHAMOrdWeek>(table);
+        }
+
+        private List<CHAMOrdWeek> QueryWeekOrderList(ShipmentItem item)
+        {
+            string material = (item.PartNumber ?? "").Replace("'", "''");
+            string project = (item.Line ?? "").Replace("'", "''");
+            string date = item.InDate.ToString("yyyy-MM-dd");
+            string sql = string.Format(
+                "SELECT * FROM cham_ord_week WHERE material_code = '{0}' AND project_code = '{1}' AND demanded_date = '{2}' AND order_type LIKE '%量产%'",
+                material, project, date);
+            DataTable table = DataHelper.Query(sql);
+            return DataHelper.MapToEntities<CHAMOrdWeek>(table) ?? new List<CHAMOrdWeek>();
         }
 
         /// <summary>
