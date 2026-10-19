@@ -988,6 +988,10 @@ namespace DENSOKB.Controllers
                                 {
                                     ftet.FZcode = "小批试制";
                                 }
+                                else if (vals.Contains("端数"))
+                                {
+                                    ftet.FZcode = "端数";
+                                }
                                 else {
                                     ftet.FZcode = item.Trim().Replace(" ", "").Substring(5, 12).Trim();
                                 }
@@ -1231,12 +1235,16 @@ namespace DENSOKB.Controllers
                                 {
                                     ftet.FZcode = "小批试制";
                                 }
+                                else if (textNjsonAll[allrow].Contains("端数"))
+                                {
+                                    ftet.FZcode = "端数";
+                                }
                                 else {
                                     ftet.FZcode = textNjsonAll[allrow].Substring(6, 12).Trim();
                                 }
 
                                 string veh_model = "";
-                                if (ftet.FZcode.Contains("小批试制"))
+                                if (ftet.FZcode.Contains("小批试制") || ftet.FZcode.Contains("端数"))
                                 {
                                     veh_model = "POORDT";
                                 }
@@ -1552,7 +1560,7 @@ namespace DENSOKB.Controllers
                 }
                 // ----------- 通过ftet去库里查链信息 通过品番，背番，车型查pallet_pct字段，箱数* pallet_pct 汇总，向上取整计算得出托盘数 ------做上传链信息
                 string veh_model = "";
-                if (ftet.FZcode.Contains("小批试制"))
+                if (ftet.FZcode.Contains("小批试制") || ftet.FZcode.Contains("端数"))
                 {
                     veh_model = "POORDT";
                 }
@@ -1969,7 +1977,7 @@ namespace DENSOKB.Controllers
                     string car = filename.Substring(2);// 车型
                     // 通过客户+车型查量表 能查到背番的唯一行
                     string veh_model = "";
-                    if (ftet.FZcode.Contains("小批试制"))
+                    if (ftet.FZcode.Contains("小批试制") || ftet.FZcode.Contains("端数"))
                     {
                         veh_model = "POORDT";
                     }
@@ -2134,9 +2142,9 @@ namespace DENSOKB.Controllers
                             // 列0 车型，      ；
                             ICell detCel0 =detailRow.GetCell(0)?? detailRow.CreateCell(0);
 
-                            if (ftet.FZcode.Contains("小批试制"))
+                            if (ftet.FZcode.Contains("小批试制") || ftet.FZcode.Contains("端数"))
                             {
-                                detCel0.SetCellValue("小批试制");
+                                detCel0.SetCellValue(ftet.FZcode);
                             }
                             else {
                                 detCel0.SetCellValue(ftet.FZcode.Substring(0, 2));

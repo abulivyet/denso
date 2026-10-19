@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
@@ -485,7 +486,7 @@ AND ou.factory LIKE CONCAT('%',
                     {
                         pallet_no = palletNos[i].ToString();
                         DirectoryInfo dir_PALLET = new DirectoryInfo(Path.Combine(basePath, @"PALLET\"));
-                        FileInfo[] F_pallet_temp = dir_PALLET.GetFiles(pallet_no + InstructionCode + "*.pdf");
+                        FileInfo[] F_pallet_temp = TakeUniqueSplitFiles(dir_PALLET.GetFiles(pallet_no + InstructionCode + "*.pdf"));
                         for (int j = 0; j < F_pallet_temp.Length; j++)
                         {
                             F_out.Add(F_pallet_temp[j]);
@@ -498,44 +499,48 @@ AND ou.factory LIKE CONCAT('%',
                     List<FileInfo> F_PLS = new List<FileInfo>();
                     DirectoryInfo DIR_PLS = new DirectoryInfo(Path.Combine(basePath, "PLS"));
 
-                    // 用 HashSet 记录已经查过的 p_code
+                    // 按取货计划托号顺序：同一托排完再下一托。文件按传票+车号一次取出，再用文件名末尾托号精确过滤（不用 *3.pdf，避免配到 13）。
                     HashSet<string> processedCodes = new HashSet<string>();
+                    HashSet<string> addedPls = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                    Dictionary<string, FileInfo[]> plsFilesByKey = new Dictionary<string, FileInfo[]>(StringComparer.OrdinalIgnoreCase);
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         string pCode = dt.Rows[i]["p_code"].ToString();
                         string carno = dt.Rows[i]["carno"].ToString();
-                        string palletno = dt.Rows[i]["palletno"].ToString().Substring(1);
+                        string palletno = NormalizePalletNo(dt.Rows[i]["palletno"].ToString());
 
-
-                        // 构建搜索模式
-                        string searchPattern = string.IsNullOrWhiteSpace(carno)
-                            ? $"{pCode}*.pdf"        // carno 为空，只根据 pCode
-                            : $"{pCode}*{carno}*{palletno}.pdf"; // carno 不为空，同时匹配 pCode 和 carno
-
-                        // 如果已经处理过 pCode+carno 组合，不再重复取
-                        string processedKey = string.IsNullOrWhiteSpace(carno) ? pCode : $"{pCode}_{carno}";
-                        //if (processedCodes.Contains(processedKey))
-                        //    continue;
-
-                        //processedCodes.Add(processedKey);
-
-                        // 获取文件并按名字排序
-                        FileInfo[] files = DIR_PLS.GetFiles(searchPattern)
-                                                   .OrderBy(f => f.Name)
-                                                   .ToArray();
-                        if (files.Length == 0) {
-                            string searchPatternOld = string.IsNullOrWhiteSpace(carno)
-                            ? $"{pCode}*.pdf"        
-                            : $"{pCode}*{carno}*.pdf"; 
-
-                            files = DIR_PLS.GetFiles(searchPatternOld)
-                                                   .OrderBy(f => f.Name)
-                                                   .ToArray();
+                        string groupKey = string.IsNullOrWhiteSpace(carno) ? pCode : $"{pCode}_{carno}";
+                        string processedKey = string.IsNullOrEmpty(palletno) ? groupKey : $"{groupKey}_{palletno}";
+                        if (!processedCodes.Add(processedKey))
+                        {
+                            continue;
                         }
 
-                        // 添加到集合
-                        F_PLS.AddRange(files);
+                        FileInfo[] groupFiles;
+                        if (!plsFilesByKey.TryGetValue(groupKey, out groupFiles))
+                        {
+                            string searchPattern = string.IsNullOrWhiteSpace(carno)
+                                ? $"{pCode}*.pdf"
+                                : $"{pCode}*{carno}*.pdf";
+                            groupFiles = TakeUniqueSplitFiles(DIR_PLS.GetFiles(searchPattern)
+                                                       .OrderBy(f => f.Name));
+                            plsFilesByKey[groupKey] = groupFiles;
+                        }
+
+                        IEnumerable<FileInfo> files = groupFiles;
+                        if (!string.IsNullOrEmpty(palletno))
+                        {
+                            files = groupFiles.Where(f => FileNameMatchesPallet(f.Name, palletno)).OrderBy(f => f.Name);
+                        }
+
+                        foreach (var file in files)
+                        {
+                            if (addedPls.Add(file.FullName))
+                            {
+                                F_PLS.Add(file);
+                            }
+                        }
                     }
 
                     if (F_PLS.Count == 0 ) {
@@ -2041,7 +2046,7 @@ GROUP BY version, rec_location, pn,
 
                 string fileNameKeywords = string.Format("{0}{1}*.pdf", dt.Rows[i]["palletno"].ToString(), InstructionCode);
 
-                FileInfo[] filess = directoryInfo.GetFiles(fileNameKeywords);
+                FileInfo[] filess = TakeUniqueSplitFiles(directoryInfo.GetFiles(fileNameKeywords));
 
                 foreach (var item in filess)
                 {
@@ -2092,6 +2097,7 @@ GROUP BY version, rec_location, pn,
             //最终输出路径
             string F_PLS_outpath = Path.Combine(outPath, "PLS.pdf");
 
+            HashSet<string> addedPls = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DirectoryInfo DIR_PLS = new DirectoryInfo(Path.Combine(basePath, "PLS"));
@@ -2101,11 +2107,14 @@ GROUP BY version, rec_location, pn,
                 else if (outType == enumOutType.Other)
                     F_PLS_TEMP = DIR_PLS.GetFiles(dt.Rows[i]["pn"].ToString().Replace("-", "").Replace(" ", "") + "*.pdf");
 
-                F_PLS_TEMP = F_PLS_TEMP.OrderBy(f => f.Name).ToArray();
+                F_PLS_TEMP = TakeUniqueSplitFiles(F_PLS_TEMP.OrderBy(f => f.Name));
 
                 for (int j = 0; j < F_PLS_TEMP.Length; j++)
                 {
-                    F_PLS.Add(F_PLS_TEMP[j]);
+                    if (addedPls.Add(F_PLS_TEMP[j].FullName))
+                    {
+                        F_PLS.Add(F_PLS_TEMP[j]);
+                    }
                 }
             }
 
@@ -2351,8 +2360,11 @@ GROUP BY carno, rec_location, palletno, pn, rec_datetime,
                         recTimeFormatted = rectime.Replace(":", "").PadRight(6, '0');
                     }
                     string rec_location = row.Field<string>("rec_location").Replace("-", "") ?? string.Empty;
-                    //int boxQty = row.Field<int>("packunit");
-                    int boxQty = row.Field<int?>("packunit") ?? 0;
+                    int boxQty = GetTraceInt(row, "packunit");
+                    int planQty = GetTraceInt(row, "planqty");
+                    // packunit 是箱数，标签零件数 = 纳入数 / 箱数（25/1=25，90/3=30）
+                    int needLabelQty = GetTraceNeedLabelQty(planQty, boxQty);
+                    int takeCount = boxQty > 0 ? boxQty : 0;
 
 
                     if (string.IsNullOrEmpty(pn) || string.IsNullOrEmpty(rectime) || string.IsNullOrEmpty(rec_location))
@@ -2363,6 +2375,9 @@ GROUP BY carno, rec_location, palletno, pn, rec_datetime,
                     string searchPattern = $"*{pn}*{reckdate}*{recTimeFormatted}*{rec_location}*.pdf";
 
                     var allFiles = Directory.GetFiles(basePath, searchPattern);
+                    XErrorLogToolMDM.WriteLog(string.Format(
+                        "GHAC追溯 pn={0} planqty={1} packunit={2} labelQty={3} take={4} files={5} pattern={6}",
+                        pn, planQty, boxQty, needLabelQty, takeCount, allFiles.Length, searchPattern));
 
                     //  读取当前 offset（从状态文件读，不存在则从0开始）
                     string stateKey = $"{pn}_{reckdate}_{recTimeFormatted}_{rec_location}";
@@ -2372,41 +2387,51 @@ GROUP BY carno, rec_location, palletno, pn, rec_datetime,
                     //  如果 offset 超出范围，归零（循环）
                     if (offset >= allFiles.Length) offset = 0;
 
-                    //int addedThisLine = 0;
-                    //foreach (var filePath in allFiles)
-                    //{
-                    //    if (filePathSet.Add(filePath))
-                    //    {
-                    //        allMatchingFileInfos.Add(new FileInfo(filePath));
-
-                    //        addedThisLine++;
-
-                    //        if (boxQty > 0 && addedThisLine >= boxQty)
-                    //        {
-                    //            break; 
-                    //        }
-                    //    }
-                    //}
-
-                    // 从 offset 开始遍历，替换你原来的 foreach
                     int addedThisLine = 0;
-                    for (int i = offset; i < allFiles.Length; i++)
+                    if (needLabelQty > 0 && takeCount > 0)
                     {
-                        string filePath = allFiles[i];
-                        if (filePathSet.Add(filePath))
+                        for (int i = 0; i < allFiles.Length && addedThisLine < takeCount; i++)
                         {
-                            allMatchingFileInfos.Add(new FileInfo(filePath));
-                            addedThisLine++;
-                            if (boxQty > 0 && addedThisLine >= boxQty)
+                            string filePath = allFiles[i];
+                            if (filePathSet.Contains(filePath))
                             {
-                                offset = i + 1; // 记录下次从哪里开始
-                                break;
+                                continue;
+                            }
+                            if (!TraceLabelQtyMatches(filePath, needLabelQty))
+                            {
+                                continue;
+                            }
+                            if (filePathSet.Add(filePath))
+                            {
+                                allMatchingFileInfos.Add(new FileInfo(filePath));
+                                addedThisLine++;
+                                offset = i + 1;
+                                XErrorLogToolMDM.WriteLog("GHAC追溯按零件数命中 " + filePath);
                             }
                         }
                     }
 
-                    // 如果循环跑完都没 break（文件不足 boxQty），offset 就到末尾，下次自动归零
-                    if (addedThisLine < boxQty) offset = allFiles.Length;
+                    if (addedThisLine < takeCount)
+                    {
+                        XErrorLogToolMDM.WriteLog(string.Format(
+                            "GHAC追溯零件数未凑齐 pn={0} labelQty={1} got={2} need={3}", pn, needLabelQty, addedThisLine, takeCount));
+                        for (int i = offset; i < allFiles.Length; i++)
+                        {
+                            string filePath = allFiles[i];
+                            if (filePathSet.Add(filePath))
+                            {
+                                allMatchingFileInfos.Add(new FileInfo(filePath));
+                                addedThisLine++;
+                                if (takeCount > 0 && addedThisLine >= takeCount)
+                                {
+                                    offset = i + 1;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (addedThisLine < takeCount) offset = allFiles.Length;
+                    }
                     // 保存 offset
                     System.IO.File.WriteAllText(stateFile, offset.ToString());
 
@@ -2431,6 +2456,157 @@ GROUP BY carno, rec_location, palletno, pn, rec_datetime,
 
                 throw;
             }
+        }
+
+        private static int GetTraceInt(DataRow row, string column)
+        {
+            if (row == null || !row.Table.Columns.Contains(column) || row[column] == null || row[column] == DBNull.Value)
+            {
+                return 0;
+            }
+            try
+            {
+                return Convert.ToInt32(Convert.ToDecimal(row[column]));
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 标签上的零件数 = 纳入数 / 箱数。pickupplan.packunit 是箱数，不是每箱件数。
+        /// </summary>
+        private static int GetTraceNeedLabelQty(int planQty, int boxQty)
+        {
+            if (planQty <= 0)
+            {
+                return 0;
+            }
+            if (boxQty <= 0)
+            {
+                return planQty;
+            }
+            return planQty / boxQty;
+        }
+
+        /// <summary>
+        /// 追溯标签 PDF 里的零件数是否等于指定数量（拆开的文件可能仍带四联文本）。
+        /// </summary>
+        private static bool TraceLabelQtyMatches(string filePath, int qty)
+        {
+            if (string.IsNullOrEmpty(filePath) || qty <= 0 || !System.IO.File.Exists(filePath))
+            {
+                return false;
+            }
+
+            Spire.Pdf.PdfDocument pdf = null;
+            try
+            {
+                pdf = new Spire.Pdf.PdfDocument();
+                pdf.LoadFromFile(filePath);
+                if (pdf.Pages.Count == 0)
+                {
+                    return false;
+                }
+
+                PdfTextExtractor extractor = new PdfTextExtractor(pdf.Pages[0]);
+                string text = extractor.ExtractText(new PdfTextExtractOptions()) ?? string.Empty;
+                return GetTraceLabelQtys(text).Contains(qty);
+            }
+            catch (Exception ex)
+            {
+                XErrorLogToolMDM.WriteLog("GHAC追溯读零件数失败 " + filePath + " " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                if (pdf != null)
+                {
+                    pdf.Close();
+                }
+            }
+        }
+
+        private static HashSet<int> GetTraceLabelQtys(string text)
+        {
+            var qtys = new HashSet<int>();
+            if (string.IsNullOrEmpty(text))
+            {
+                return qtys;
+            }
+            string[] patterns =
+            {
+                @"PARTS\s*NO\s+(\d{1,3})\s*批次号",
+                @"零件数\s*(\d{1,3})",
+                @"Q['’]?\s*T\s*Y\s*(\d{1,3})"
+            };
+            foreach (string pattern in patterns)
+            {
+                foreach (Match match in Regex.Matches(text, pattern, RegexOptions.IgnoreCase))
+                {
+                    int labelQty;
+                    if (int.TryParse(match.Groups[1].Value, out labelQty) && labelQty > 0)
+                    {
+                        qtys.Add(labelQty);
+                    }
+                }
+            }
+            return qtys;
+        }
+
+        private static string NormalizePalletNo(string palletno)
+        {
+            if (string.IsNullOrEmpty(palletno))
+            {
+                return string.Empty;
+            }
+            string s = palletno.Trim();
+            if (s.StartsWith("托"))
+            {
+                s = s.Substring(1);
+            }
+            return s.Trim();
+        }
+
+        /// <summary>
+        /// 看板文件名末尾是托号。用数值比较（3 对 03，不对 13）。
+        /// </summary>
+        private static bool FileNameMatchesPallet(string fileName, string palletno)
+        {
+            int want;
+            if (string.IsNullOrEmpty(fileName) || !int.TryParse(NormalizePalletNo(palletno), out want))
+            {
+                return false;
+            }
+            string name = Path.GetFileNameWithoutExtension(fileName);
+            name = Regex.Replace(name ?? string.Empty, @"_Page_\d+$", string.Empty);
+            if (string.IsNullOrEmpty(name))
+            {
+                return false;
+            }
+            int got;
+            if (name.Length >= 2 && int.TryParse(name.Substring(name.Length - 2), out got))
+            {
+                return got == want;
+            }
+            return int.TryParse(name.Substring(name.Length - 1), out got) && got == want;
+        }
+
+        /// <summary>
+        /// 拆分时若文件名已存在会另存 _Page_N，下载时只留一份。
+        /// </summary>
+        private static FileInfo[] TakeUniqueSplitFiles(IEnumerable<FileInfo> files)
+        {
+            if (files == null)
+            {
+                return new FileInfo[0];
+            }
+            return files
+                .Where(f => f != null)
+                .GroupBy(f => Regex.Replace(f.Name, @"_Page_\d+(?=\.pdf$)", string.Empty, RegexOptions.IgnoreCase), StringComparer.OrdinalIgnoreCase)
+                .Select(g => g.FirstOrDefault(x => x.Name.IndexOf("_Page_", StringComparison.OrdinalIgnoreCase) < 0) ?? g.OrderBy(x => x.Name).First())
+                .ToArray();
         }
 
         /// <summary>
